@@ -25,6 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Make database accessible to router
+app.use(function(req, res, next) {
+    req.db = db;
+    next();
+});
+
 app.use('/', routes);
 app.use('/users', users);
 
